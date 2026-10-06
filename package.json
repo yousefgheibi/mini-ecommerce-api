@@ -1,0 +1,28 @@
+{
+  "name": "mini-ecommerce-api",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/yousefgheibi/mini-ecommerce-api#readme",
+  "bugs": {
+    "url": "https://github.com/yousefgheibi/mini-ecommerce-api/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yousefgheibi/mini-ecommerce-api.git"
+  },
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec tsx src/app.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.6",
+    "@types/typescript": "^0.4.29",
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
