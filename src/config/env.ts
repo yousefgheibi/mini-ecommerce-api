@@ -25,8 +25,8 @@ export const env = {
   server: {
     port: Number(required("API_PORT")),
     nodeEnv: required("NODE_ENV"),
-    databaseUrl: `postgresql://${required("POSTGRES_USER")}:${required("POSTGRES_PASSWORD")}@postgres:${required("POSTGRES_PORT")}/${required("POSTGRES_DB")}?schema=public`,
-    redisUrl: `redis://redis:${required("REDIS_PORT")}`,
+    databaseUrl: `postgresql://${required("POSTGRES_USER")}:${required("POSTGRES_PASSWORD")}@localhost:${required("POSTGRES_PORT")}/${required("POSTGRES_DB")}?schema=public`,
+    redisUrl: `redis://localhost:${required("REDIS_PORT")}`,
     jwtSecret: required("JWT_SECRET"),
     jwtExpiresIn: required("JWT_EXPIRES_IN"),
   },
