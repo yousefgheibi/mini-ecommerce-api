@@ -29,6 +29,7 @@ export const env = {
     redisUrl: `redis://localhost:${required("REDIS_PORT")}`,
     jwtSecret: required("JWT_SECRET"),
     jwtExpiresIn: required("JWT_EXPIRES_IN"),
+    uploadDir: required("UPLOADS_DIR")
   },
   app: {
     paymentMockDelayMs: Number(required("PAYMENT_MOCK_DELAY_MS")),
