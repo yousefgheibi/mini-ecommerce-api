@@ -1,6 +1,9 @@
 import { prisma } from "../config/prisma-client";
 import { redisClient } from "../config/redis-client";
-import { CreateProductInput } from "../validations/product-validations";
+import {
+  CreateProductInput,
+  UpdateProductInput,
+} from "../validations/product-validations";
 
 const PRODUCTS_LIST_CACHE_KEY = "products:all";
 const PRODUCTS_CACHE_TTL_SECOUNDS = 300;
@@ -27,11 +30,28 @@ export async function getAllProcuts() {
   return products;
 }
 
-
-export async function createNewProduct(data: CreateProductInput, imageUrl?: string) {
+export async function createNewProduct(
+  data: CreateProductInput,
+  imageUrl?: string,
+) {
   const product = await prisma.product.create({
-    data: {...data, imageUrl}
-  })
+    data: { ...data, imageUrl },
+  });
+
+  await invalidateProductsListCache();
+
+  return product;
+}
+
+export async function updateProductSv(
+  id: string,
+  data: UpdateProductInput,
+  imageUrl?: string,
+) {
+  const product = await prisma.product.update({
+    where: { id: +id },
+    data: { ...data, imageUrl },
+  });
 
   await invalidateProductsListCache();
 
