@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createProduct, updateProduct, listProducts } from "../controller/product-controller";
+import { createProductEndpoint, updateProductEndpoint, listProductsEndpoint, getProductDetailEndpoint, deleteProductEndpoint } from "../controller/product-controller";
 import { authMiddleware } from "../middlewares/auth-middleware";
 import { adminMiddleware } from "../middlewares/admin-middleware";
 import { uploadProductImage } from "../middlewares/upload-middleware";
@@ -7,14 +7,15 @@ import { validate } from "../middlewares/validation-middleware";
 import { createProductSchema, updateProductSchema } from "../validations/product-validations";
 
 const router = Router();
-router.get("/", listProducts);
+router.get("/", listProductsEndpoint);
+router.get("/:id", getProductDetailEndpoint);
 router.post(
   "/",
   authMiddleware,
   adminMiddleware,
   uploadProductImage,
   validate(createProductSchema),
-  createProduct
+  createProductEndpoint
 );
 
 router.patch(
@@ -23,7 +24,14 @@ router.patch(
   adminMiddleware,
   uploadProductImage,
   validate(updateProductSchema),
-  updateProduct
+  updateProductEndpoint
+);
+
+router.delete(
+  "/:id",
+  authMiddleware,
+  adminMiddleware,
+  deleteProductEndpoint
 );
 
 export default router;
