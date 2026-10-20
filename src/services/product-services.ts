@@ -9,8 +9,12 @@ import {
 const PRODUCTS_LIST_CACHE_KEY = "products:all";
 const PRODUCTS_CACHE_TTL_SECOUNDS = 300;
 
-async function invalidateProductsListCache(): Promise<void> {
+export async function invalidateProductsListCache(): Promise<void> {
   await redisClient.del(PRODUCTS_LIST_CACHE_KEY);
+}
+
+export async function invalidateProductCache(id: number): Promise<void> {
+  await redisClient.del(productCacheKeyById(id));
 }
 
 function productCacheKeyById(id: number): string {
@@ -58,7 +62,7 @@ export async function updateProduct(
     data: { ...data, imageUrl },
   });
 
-  await invalidateProductsListCache();
+  await invalidateProductCache(id);
 
   return product;
 }
@@ -103,5 +107,5 @@ export async function deleteProduct(id: number): Promise<void> {
   }
 
   await invalidateProductsListCache();
-  await redisClient.del(productCacheKeyById(id));
+  await invalidateProductCache(id);
 }
