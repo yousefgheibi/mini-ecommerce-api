@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma } from "../../generated/prisma/client";
 import { prisma } from "../config/prisma-client";
 import { AppError } from "../utils/app-error";
 import { invalidateProductCache } from "./product-services";
@@ -58,8 +58,8 @@ export async function checkout(userId: number) {
     },
   );
 
-  order.items.map(
-    async (item: any) => await invalidateProductCache(item.productId),
+  await Promise.all(
+    order.items.map((item) => invalidateProductCache(item.productId)),
   );
 
   return order;
